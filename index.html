@@ -67,10 +67,11 @@ header.top{padding:0}
 .hot{position:absolute;border-radius:999px}
 .hot:hover,.hot:focus-visible{box-shadow:0 0 0 2px var(--b3),0 0 18px rgba(68,157,216,.55);outline:none}
 .rail .logo{display:block;margin:0 0 10px}
+.ig img{display:block;width:20px;height:20px}
 .ig{display:inline-flex;align-items:center;gap:8px;font-family:var(--ui);font-size:14px;font-weight:700;color:var(--b3);text-decoration:none;border:1px solid rgba(68,157,216,.45);border-radius:999px;padding:5px 12px 5px 9px;white-space:nowrap}
 .ig:hover{background:var(--rail-hover);color:var(--on-rail)}
 .rail .ig{margin:0 0 18px}
-.sign .ig{margin-left:auto;flex:none}
+.sign .ig{flex:none}
 .rail .logo img{display:block;width:176px;height:auto}
 .eyebrow{font-family:var(--ui);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--b3);margin:0 0 8px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,5vw,54px);line-height:1.04;margin:0 0 10px;text-wrap:balance}
@@ -174,7 +175,7 @@ button.small{padding:4px 10px;font-size:13px}
 .donebtn{margin-top:18px}
 .donebtn button.is{background:var(--b3);border-color:var(--b3);color:#061229}
 footer{margin-top:56px;display:flex;flex-direction:column;gap:16px;font-family:var(--ui);font-size:13.5px}
-.sign{display:flex;align-items:center;gap:24px;background:var(--rail);color:var(--rail-muted);border-radius:14px;padding:22px 26px}
+.sign{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;background:var(--rail);color:var(--rail-muted);border-radius:14px;padding:22px 26px}
 .sign img{width:auto;height:118px;flex:none}
 .sign p{margin:0;max-width:60ch;line-height:1.55}
 @media (max-width:860px){
@@ -185,8 +186,6 @@ footer{margin-top:56px;display:flex;flex-direction:column;gap:16px;font-family:v
   .rail li a{padding:3px 8px;border:1px solid rgba(214,222,226,.25);border-radius:999px;font-size:13px}
   .rail li a .n{min-width:0}
   main{padding:16px 16px 72px}
-  .sign{flex-direction:column;align-items:flex-start}
-  .sign .ig{margin-left:0}
   .rail .logo img{width:140px}
   .map,.skills,.fields{grid-template-columns:1fr}
   body{font-size:17px}
@@ -197,7 +196,7 @@ footer{margin-top:56px;display:flex;flex-direction:column;gap:16px;font-family:v
 <div class="shell">
 <nav class="rail" aria-label="Seções">
   <a class="logo" href="#mapa" aria-label="Jay.AI, ir para o início"><img src="img/logo-jayai-h.png" width="385" height="220" alt="Jay.AI"></a>
-  <a class="ig" href="https://www.instagram.com/jayaroberta.ai/" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg><span>@jayaroberta.ai</span></a>
+  <a class="ig" href="https://www.instagram.com/jayaroberta.ai/" rel="noopener" aria-label="Instagram @jayaroberta.ai"><img src="img/insta-azul.webp" width="20" height="20" alt=""><span>@jayaroberta.ai</span></a>
   <p class="book">Inteligência Pragmática</p>
   <p class="by">Max Peters</p>
   <div class="bar" aria-hidden="true"><i id="bar"></i></div>
@@ -667,7 +666,7 @@ footer{margin-top:56px;display:flex;flex-direction:column;gap:16px;font-family:v
   <div class="sign">
     <img src="img/logo-jayai-v.png" width="282" height="360" loading="lazy" alt="Jay.AI">
     <p>Página de estudo lendário, escrita com palavras próprias a partir da leitura do livro. Não substitui a obra. Os exemplos e números citados são do autor e trazem o capítulo de origem.</p>
-    <a class="ig" href="https://www.instagram.com/jayaroberta.ai/" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg><span>@jayaroberta.ai</span></a>
+    <a class="ig" href="https://www.instagram.com/jayaroberta.ai/" rel="noopener" aria-label="Instagram @jayaroberta.ai"><img src="img/insta-azul.webp" width="20" height="20" alt=""><span>@jayaroberta.ai</span></a>
   </div>
 </footer>
 </main>
