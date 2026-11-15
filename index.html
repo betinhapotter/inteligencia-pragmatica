@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inteligência Pragmática: página de estudo</title>
+<meta name="description" content="Página de estudo do livro Inteligência Pragmática, de Max Peters: resumo por parte, ferramentas para preencher, cartões, quiz e prompts.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://inteligencia-pragmatica.vercel.app/">
+<link rel="canonical" href="https://inteligencia-pragmatica.vercel.app/">
+<meta property="og:title" content="Inteligência Pragmática: página de estudo">
+<meta property="og:description" content="Definir, planejar e executar. Resumo, ferramentas, quiz e prompts baseados no livro de Max Peters.">
+<meta property="og:image" content="https://inteligencia-pragmatica.vercel.app/img/og-inteligencia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://inteligencia-pragmatica.vercel.app/img/og-inteligencia.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+/* Plano: bancada de estudo em azul-marinho. Trilho escuro fixo à esquerda com o progresso,
+   abertura em faixa marinho com a régua dos três azuis, leitura em 66ch sobre cinza-claro,
+   ferramentas em superfície mais clara. Paleta: #061229 #d6dee2 #0c4a8a #1374b9 #449dd8. Tema escuro é o padrão. Seções recolhidas, abrem ao clicar. */
+:root{
+  --paper:#061229; --surface:#0d2140; --ink:#d6dee2; --muted:#93a7bc; --line:#1d3a63;
+  --accent:#449dd8; --accent-2:#1374b9; --accent-soft:#0c2f55; --mark:#449dd8; --mark-soft:#0c3a66;
+  --rail:#040c1d; --on-rail:#d6dee2; --rail-muted:#8fa3b8; --rail-hover:#0c4a8a;
+  --b1:#0c4a8a; --b2:#1374b9; --b3:#449dd8;
+  --ok:#5fd09a; --bad:#ff8a80; color-scheme:dark;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Literata",Georgia,"Times New Roman",serif;
+  --ui:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+}
+:root.light{
+  --paper:#d6dee2; --surface:#f2f5f7; --ink:#061229; --muted:#3d4f66; --line:#b3c0c9;
+  --accent:#0c4a8a; --accent-2:#1374b9; --accent-soft:#c3d6e6; --mark:#449dd8; --mark-soft:#c9e0f1;
+  --rail:#061229;
+  --ok:#17794a; --bad:#b3261e; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.shell{display:grid;grid-template-columns:292px minmax(0,1fr)}
+nav.rail{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:28px 18px;font-family:var(--ui);font-size:14.5px;background:var(--rail);color:var(--on-rail)}
+.rail .book{font-weight:700;font-size:18px;line-height:1.2;margin:0 0 4px}
+.rail .by{color:var(--rail-muted);margin:0 0 18px}
+.bar{height:8px;background:rgba(214,222,226,.18);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--b3);transition:width .3s}
+.pct{color:var(--rail-muted);margin:6px 0 18px;font-variant-numeric:tabular-nums}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.rail li{margin:0}
+.rail li a{display:flex;gap:10px;align-items:baseline;padding:6px 8px;border-radius:6px;text-decoration:none;color:var(--on-rail)}
+.rail li a:hover{background:var(--rail-hover)}
+.rail li a .n{color:var(--rail-muted);font-variant-numeric:tabular-nums;min-width:1.6em}
+.rail li.done a .n{color:var(--b3);font-weight:700}
+.rail li.done a .t{color:var(--rail-muted)}
+.rail .grp{margin:16px 8px 4px;color:var(--b3);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+main{padding:28px 32px 96px;min-width:0;max-width:980px}
+header.top{padding:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.art{position:relative;border-radius:14px;overflow:hidden;line-height:0;background:var(--rail)}
+.art img{display:block;width:100%;height:auto}
+.hot{position:absolute;border-radius:999px}
+.hot:hover,.hot:focus-visible{box-shadow:0 0 0 2px var(--b3),0 0 18px rgba(68,157,216,.55);outline:none}
+.rail .logo{display:block;margin:0 0 18px}
+.rail .logo img{display:block;width:176px;height:auto}
+.eyebrow{font-family:var(--ui);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--b3);margin:0 0 8px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,5vw,54px);line-height:1.04;margin:0 0 10px;text-wrap:balance}
+.sub{font-size:20px;color:var(--on-rail);opacity:.86;margin:0 0 14px;max-width:34em}
+.meta{font-family:var(--ui);font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 18px;margin:12px 4px 10px}
+.ruler{display:grid;grid-template-columns:3fr 2fr 1fr;height:8px;margin:0 -34px}
+.ruler i:nth-child(1){background:var(--b1)}.ruler i:nth-child(2){background:var(--b2)}.ruler i:nth-child(3){background:var(--b3)}
+section{padding-top:20px;scroll-margin-top:8px}
+section.open{padding-bottom:34px}
+section .body{display:none;padding-top:6px}
+section.open .body{display:block}
+.body>*{max-width:66ch}
+.body>.wide{max-width:none}
+h2 button{all:unset;cursor:pointer;display:flex;align-items:baseline;gap:.35em;width:100%;box-sizing:border-box}
+h2 button::after{content:"+";margin-left:auto;padding-left:12px;color:var(--accent-2);font-weight:500}
+section.open h2 button::after{content:"\2212"}
+h2 button:hover .t{color:var(--accent)}
+.rail .ctl{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.rail .ctl button{background:transparent;border-color:rgba(214,222,226,.3);color:var(--on-rail);font-size:12.5px;font-weight:500;padding:4px 9px}
+h2{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.12;margin:0 0 6px;text-wrap:balance;padding-top:14px;border-top:3px solid var(--accent)}
+h2 .n{color:var(--accent-2);font-variant-numeric:tabular-nums}
+.src{font-family:var(--ui);font-size:13px;color:var(--muted);margin:0 0 6px}
+h3{font-family:var(--display);font-weight:700;font-size:21px;margin:30px 0 8px;line-height:1.2;text-wrap:balance}
+h4{font-family:var(--ui);font-weight:700;font-size:15px;margin:18px 0 6px;color:var(--accent)}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:1.2em}
+li{margin-bottom:4px}
+mark{background:var(--mark-soft);color:inherit;padding:0 .15em;border-bottom:2px solid var(--mark)}
+.key{border-left:5px solid var(--accent-2);background:var(--surface);padding:14px 18px;margin:0 0 18px;font-size:19px;border-radius:0 8px 8px 0}
+.note{font-family:var(--ui);font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin:0 0 16px}
+.tablewrap{overflow-x:auto;margin:0 0 18px;border-radius:8px}
+table{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:14.5px;line-height:1.45;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+thead th{background:var(--rail);color:var(--on-rail);font-weight:700;border-color:var(--rail)}
+tbody th{background:var(--accent-soft);font-weight:700}
+td b{font-weight:700}
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:6px 0 18px}
+.map .col{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--b1);border-radius:8px;padding:14px 16px;font-family:var(--ui);font-size:14.5px;line-height:1.45}
+.map .col:nth-child(2){border-top-color:var(--b2)}
+.map .col:nth-child(3){border-top-color:var(--b3)}
+.map .ph{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.map .q{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;margin:4px 0 10px}
+.map .col .tool{font-weight:700;color:var(--accent);background:none;border:0;border-radius:0;padding:0;margin:0;font-size:inherit}
+.map ul{padding-left:1.1em;margin:6px 0 0}
+.flow{font-family:var(--ui);font-size:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 18px}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.flow b{color:var(--accent)}
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-family:var(--ui);font-size:14.5px;line-height:1.5}
+.skill .tag{display:inline-block;background:var(--accent);color:var(--surface);font-weight:700;border-radius:4px;padding:1px 8px;font-size:12.5px;letter-spacing:.04em}
+.skill h3{margin:8px 0 2px;font-size:20px}
+.skill .res{color:var(--muted);margin:0 0 8px}
+.skill ul{margin:0 0 8px}
+.skill .try{border-top:1px solid var(--line);padding-top:8px;margin:0}
+.tool{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent-2);border-radius:10px;padding:20px;margin:0 0 22px;font-family:var(--ui);font-size:15px;line-height:1.5}
+.tool h3{margin-top:0}
+.tool .hint{color:var(--muted);margin:0 0 14px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}
+.fields.one{grid-template-columns:1fr}
+label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:13.5px}
+label small{font-weight:400;color:var(--muted)}
+input[type=text],textarea{font:inherit;font-weight:400;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+textarea{min-height:66px;resize:vertical}
+.out{background:var(--mark-soft);border-left:4px solid var(--mark);padding:12px 14px;margin:14px 0 10px;font-family:var(--body);font-size:17px;line-height:1.5;min-height:3em;border-radius:0 6px 6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:13px;color:var(--muted)}
+.chip.on{background:var(--accent-2);border-color:var(--accent-2);color:#f2f5f7;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-family:var(--ui);font-size:14px;font-weight:700;cursor:pointer;border-radius:6px;padding:8px 14px;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+button:hover{filter:brightness(1.12)}
+button.ghost{background:transparent;color:var(--accent)}
+button.small{padding:4px 10px;font-size:13px}
+.said{font-size:13px;color:var(--ok);font-weight:700}
+.fallback{margin-top:10px;display:none}
+.fallback.show{display:block}
+.card{background:var(--rail);border:2px solid var(--b2);border-radius:12px;min-height:190px;padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px;cursor:pointer;text-align:left;width:100%;color:var(--on-rail);font-weight:400}
+.card .side{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--b3);font-weight:700}
+.card .txt{font-family:var(--display);font-size:22px;line-height:1.25;font-weight:700}
+.card.back{background:var(--b1)}
+.card.back .txt{font-family:var(--ui);font-size:16.5px;font-weight:400;line-height:1.5}
+.card.back .side{color:var(--on-rail)}
+.count{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px}
+.qz{border-top:1px solid var(--line);padding:14px 0}
+.qz p{font-weight:700;margin:0 0 8px;font-family:var(--ui);font-size:15.5px}
+.qz .opts{display:flex;flex-direction:column;gap:6px}
+.qz button{text-align:left;background:var(--paper);color:var(--ink);border-color:var(--line);font-weight:400}
+.qz button.right{border-color:var(--ok);background:var(--surface);box-shadow:inset 4px 0 0 var(--ok);font-weight:700}
+.qz button.wrong{border-color:var(--bad);box-shadow:inset 4px 0 0 var(--bad)}
+.qz .why{font-size:14px;color:var(--muted);margin:8px 0 0;font-weight:400}
+.score{font-weight:700;font-variant-numeric:tabular-nums}
+.days{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.days li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-family:var(--ui);font-size:14.5px;line-height:1.45;margin:0}
+.days label{flex-direction:row;gap:12px;align-items:flex-start;font-weight:400;font-size:14.5px}
+.days input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--accent-2)}
+.days b{display:block}
+.days .crit{color:var(--muted)}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 14px;font-family:var(--ui);font-size:14.5px}
+.prompt h4{margin-top:0}
+.prompt pre{white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;background:var(--paper);border-radius:6px;padding:10px 12px;margin:8px 0;overflow-x:auto}
+.prompt .when{color:var(--muted);margin:0}
+.donebtn{margin-top:18px}
+.donebtn button.is{background:var(--b3);border-color:var(--b3);color:#061229}
+footer{margin-top:56px;display:flex;flex-direction:column;gap:16px;font-family:var(--ui);font-size:13.5px}
+.sign{display:flex;align-items:center;gap:24px;background:var(--rail);color:var(--rail-muted);border-radius:14px;padding:22px 26px}
+.sign img{width:auto;height:118px;flex:none}
+.sign p{margin:0;max-width:60ch;line-height:1.55}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr}
+  nav.rail{position:static;height:auto;padding:18px 16px 6px}
+  .rail ol{flex-direction:row;flex-wrap:wrap;gap:4px;padding-bottom:12px}
+  .rail .grp{display:none}
+  .rail li a{padding:3px 8px;border:1px solid rgba(214,222,226,.25);border-radius:999px;font-size:13px}
+  .rail li a .n{min-width:0}
+  main{padding:16px 16px 72px}
+  .sign{flex-direction:column;align-items:flex-start}
+  .rail .logo img{width:140px}
+  .map,.skills,.fields{grid-template-columns:1fr}
+  body{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="rail" aria-label="Seções">
+  <a class="logo" href="#mapa" aria-label="Jay.AI, ir para o início"><img src="img/logo-jayai-h.png" width="385" height="220" alt="Jay.AI"></a>
+  <p class="book">Inteligência Pragmática</p>
+  <p class="by">Max Peters</p>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <p class="pct" id="pct">0 de 14 seções</p>
+  <div class="ctl"><button type="button" id="all-toggle">Abrir todas</button><button type="button" id="theme-toggle">Tema claro</button></div>
+  <ol id="toc"></ol>
+</nav>
+
+<main>
+<header class="top">
+  <h1 class="sr">Inteligência Pragmática: página de estudo</h1>
+  <div class="art">
+    <img src="img/hero-inteligencia.webp" width="1731" height="909" alt="Página de estudo de Inteligência Pragmática, a habilidade humana que a IA nunca substituirá. Baseado no livro de Max Peters. Definir, planejar, executar.">
+    <a class="hot" href="#definir" aria-label="Abrir Parte I: Definir" style="left:5.7%;top:67.9%;width:16.1%;height:9.0%"></a><a class="hot" href="#planejar" aria-label="Abrir Parte II: Planejar" style="left:23.6%;top:67.9%;width:17.0%;height:9.0%"></a><a class="hot" href="#executar" aria-label="Abrir Parte III: Executar" style="left:42.3%;top:67.9%;width:17.7%;height:9.0%"></a>
+  </div>
+  <p class="meta"><span>Max Peters</span><span>Citadel, 1ª edição, 2026</span><span>3 partes, 24 capítulos</span><span>Leitura desta página: cerca de 50 min, mais as ferramentas</span></p>
+</header>
+
+<section id="mapa" data-t="O livro em uma página">
+  <h2>O livro em uma página</h2>
+  <p class="src">Fonte: Introdução e cap. 24</p>
+  <p class="key">Inteligência, para o autor, é <mark>a capacidade de alcançar objetivos</mark>. Não é saber mais. É definir o que você quer, planejar como chegar e executar, ajustando conforme o mundo responde.</p>
+  <p>O livro inteiro responde a três perguntas, uma por parte. Cada pergunta tem uma ferramenta, e cada ferramenta tem uma sigla.</p>
+  <div class="map wide">
+    <div class="col"><div class="ph">Parte I · Definir</div><div class="q">Como um desejo vira objetivo?</div><div class="tool">Projeto Ganha-Ganha (PGG)</div><ul><li>Conciso</li><li>Corajoso</li><li>Controlável</li><li>Comprometido</li></ul></div>
+    <div class="col"><div class="ph">Parte II · Planejar</div><div class="q">Como um objetivo vira plano?</div><div class="tool">Plano Mínimo Viável (8Rs)</div><ul><li>Resultado, Razão, Referência, Rumo</li><li>Recursos, Restrições, Riscos, Responsável</li></ul></div>
+    <div class="col"><div class="ph">Parte III · Executar</div><div class="q">Como um plano vira realidade?</div><div class="tool">Seis Habilidades Pragmáticas</div><ul><li>Focar, Pesquisar, Entender</li><li>Idear, Decidir, Comunicar</li></ul></div>
+  </div>
+  <p>Por baixo de tudo corre o que o autor chama de Fluxo Pragmático, a ordem em que qualquer tarefa deve ser atacada:</p>
+  <p class="flow wide"><span><b>1</b> Objetivo</span> depois <span><b>2</b> Informação</span> depois <span><b>3</b> Ação</span></p>
+  <p>O pedido do autor é que você trate o livro como obra de consulta, daquelas que ficam na mesa. Esta página foi montada com essa lógica: resumo para reler, ferramentas para preencher e treino para fixar.</p>
+</section>
+
+<section id="tese" data-t="A tese: gênio ou pragmático">
+  <h2>A tese: gênio ou pragmático</h2>
+  <p class="src">Fonte: Nota do Autor e Introdução. <a href="https://open.spotify.com/episode/3KXShduIBa9bfNJQNpHo0J">Ouvir a introdução em áudio no Spotify (25 min)</a></p>
+  <p>O livro abre com um contraste. Tesla representa a inteligência bruta: cálculo de cabeça, oito idiomas, memória fora da curva. Edison largou a escola aos doze anos e era visto como aluno caótico. Só que Edison aprendeu, invenção após invenção, que tecnologia precisa de apelo comercial, de equipe e de atenção pública. Montou o primeiro laboratório de invenções do mundo e chegou a registrar uma patente por semana. Na leitura do autor, Tesla morreu sozinho e sem dinheiro. Edison morreu realizado e deixou uma empresa que existe até hoje.</p>
+  <p>A conclusão dele: existe um tipo de inteligência mais útil que o QI, e ela pode ser treinada como qualquer habilidade.</p>
+  <h3>Por que essa definição serve</h3>
+  <ul>
+    <li><b>É abrangente.</b> Aprender, raciocinar, lembrar: tudo cabe dentro de "alcançar um objetivo".</li>
+    <li><b>É expansível.</b> Dá para melhorar com prática, e talento natural pesa pouco.</li>
+    <li><b>Não é excludente.</b> Não exige QI alto nem inteligência emocional alta.</li>
+    <li><b>Olha para impacto.</b> Sai do potencial e cobra resultado.</li>
+  </ul>
+  <h3>Por que a IA não substitui</h3>
+  <p>O autor propõe um experimento mental: em 2050, máquinas fazem tudo melhor que nós. E daí? O xadrez já passou por isso. Computadores vencem o campeão mundial desde 1997 e o jogo nunca teve tanta gente jogando. As pessoas não jogam para ser melhores que a máquina. Jogam para ver o próprio progresso, e a IA virou treinadora.</p>
+  <p>O argumento central é que desejar é humano, criar dá significado e esforço dá significado. A IA vira recurso, como a eletricidade. Quem sabe definir, planejar e executar continua tendo o que fazer com ela.</p>
+  <p>A resposta dele para "o que estudar num mundo que muda rápido" é direta: estude o que não muda. Ferramentas ficam velhas em poucos anos. A capacidade de alcançar objetivos não fica.</p>
+</section>
+
+<section id="definir" data-t="Parte I: Definir">
+  <h2>Parte I: Definir</h2>
+  <p class="src">Fonte: caps. 1 a 6</p>
+  <p class="key">Um Projeto Ganha-Ganha é um objetivo montado de um jeito em que você sai ganhando mesmo se falhar no resultado, porque o caminho já entrega habilidade, conexão ou prova.</p>
+  <p>Todo objetivo tem três variáveis que funcionam como botões de ajuste: tempo, impacto e controle. O autor aponta quatro defeitos comuns e um conserto para cada um.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Defeito do objetivo</th><th>Conserto</th><th>Pergunta de bolso</th><th>Como fazer</th></tr></thead>
+    <tbody>
+      <tr><td>Vago demais</td><td><b>Conciso</b></td><td>Posso encurtar?</td><td>Prazo curto deixa o alvo nítido, como um outdoor visto de perto. Ciclos curtos também dão mais retorno: o autor evoluía mais rápido no tênis de mesa que no tênis porque rebatia muito mais vezes por sessão.</td></tr>
+      <tr><td>Fácil demais</td><td><b>Corajoso</b></td><td>Posso aumentar?</td><td>Ache a métrica certa e então: adicione um zero, use um superlativo (o primeiro, o maior, o mais rápido) ou integre interesses que você já tem num projeto só.</td></tr>
+      <tr><td>Pouco controlável</td><td><b>Controlável</b></td><td>O que depende só de mim?</td><td>Amarre o resultado a ações que você controla: criar, competir, organizar ou publicar algo. Se não couber nisso, defina repetições ou horas.</td></tr>
+      <tr><td>Fácil de abandonar</td><td><b>Comprometido</b></td><td>Como fica difícil desistir?</td><td>Compromisso social (contar para quem importa), financeiro (pagar antes) ou de ambiente (mudar o espaço para favorecer a meta). Comprometa o esforço, não o resultado.</td></tr>
+    </tbody>
+  </table></div>
+  <p>A fórmula completa fica assim: um conjunto controlável de ações, que leva a um resultado corajoso, num prazo conciso, sustentado por compromissos.</p>
+  <h3>Antes e depois</h3>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Objetivo comum</th><th>Conciso</th><th>Corajoso</th><th>Controlável</th><th>Comprometido</th></tr></thead>
+    <tbody>
+      <tr><td>Quero ser promovida</td><td>90 dias</td><td>Promoção com aumento de 50%</td><td>Criar um plano que resolva a maior dor da empresa</td><td>Contar o plano ao gestor</td></tr>
+      <tr><td>Quero ganhar mais dinheiro</td><td>3 meses</td><td>R$ 50.000 de lucro novo</td><td>Contatar 100 potenciais clientes e testar 10 estratégias</td><td>Investir R$ 5.000 em anúncio, mentoria ou parceria</td></tr>
+      <tr><td>Quero aprender a programar</td><td>3 meses</td><td>Pódio num hackathon</td><td>Entregar um app que funciona, 5 cursos, código todo dia</td><td>Inscrição feita e progresso publicado</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Exemplos do cap. 6, com os números do próprio autor.</p>
+  <h3>Regras de uso</h3>
+  <ul>
+    <li>Não precisa dos quatro Cs para melhorar um objetivo. Um só já ajuda.</li>
+    <li>Quase todo objetivo começa com pesquisa. Informação melhor gera objetivo melhor.</li>
+    <li>No máximo dois PGGs ao mesmo tempo se você é a única responsável: um profissional e um pessoal.</li>
+    <li>Não se comprometa antes de passar o objetivo pelos 8Rs.</li>
+  </ul>
+</section>
+
+<section id="planejar" data-t="Parte II: Planejar">
+  <h2>Parte II: Planejar</h2>
+  <p class="src">Fonte: caps. 7 a 16. Li todos; do 12 e do 14 ficou de fora um trecho de exemplos</p>
+  <p class="key">Um bom objetivo faz você ganhar mesmo falhando. Um plano ruim faz você perder mesmo acertando.</p>
+  <p>O autor se apoia no livro <i>How Big Things Get Done</i>, de Bent Flyvbjerg e Dan Gardner: de mais de duzentos megaprojetos analisados, só 8,5% ficaram dentro do prazo e do orçamento ao mesmo tempo. A maioria foi concluída, mas com atraso e estouro tão grandes que, na prática, fracassou.</p>
+  <p>O Plano Mínimo Viável é um documento simples com oito perguntas. Planejar entrega velocidade, clareza e confiança. Reserve pelo menos uma hora. Quanto mais difícil for desfazer o projeto depois de pronto, mais tempo de plano ele pede: uma ponte exige mais que um post.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>R</th><th>Pergunta</th><th>O que o capítulo acrescenta</th></tr></thead>
+    <tbody>
+      <tr><td><b>Resultado</b></td><td>Qual resultado eu busco?</td><td>É o seu PGG, escrito.</td></tr>
+      <tr><td><b>Razão</b></td><td>Por que eu quero isso?</td><td>Dá clareza e ajuda a atravessar obstáculo. Também é o contexto que quem colabora com você precisa.</td></tr>
+      <tr><td><b>Referência</b></td><td>Quem já fez algo parecido?</td><td>Para o autor, é a variável que mais pesa num bom plano. Quatro formas: princípios, exemplos, guias e experts.</td></tr>
+      <tr><td><b>Rumo</b></td><td>Quais são as etapas principais?</td><td>Vem depois das referências. Três listas: etapas, ideias e questões.</td></tr>
+      <tr><td><b>Recursos</b></td><td>De que dinheiro, material, gente e informação eu preciso?</td><td>Quatro vias: pedir emprestado, trocar, alugar, comprar. Vale para dinheiro, audiência e pessoas.</td></tr>
+      <tr><td><b>Restrições</b></td><td>Do que eu não abro mão?</td><td>Limites internos. Escreva o seu pior dia possível e tire dele os anti-objetivos. Pergunte o que faria o sucesso parecer fracasso.</td></tr>
+      <tr><td><b>Riscos</b></td><td>O que pode me impedir?</td><td>Ameaça é externa, vulnerabilidade é sua. Você não controla a ameaça, então reduza a vulnerabilidade. Não paralise: mitigue os mais sérios.</td></tr>
+      <tr><td><b>Responsável</b></td><td>Quem responde pelo todo e por cada etapa?</td><td>Uma única pessoa por resultado, escolhida por capacidade, disponibilidade e vontade.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Os 8Rs em detalhe</h3>
+  <h4>Resultado (cap. 8)</h4>
+  <p>É o PGG posto no papel. Pode haver mais de um conjunto de ações controláveis para o mesmo resultado corajoso, e escolher qual escrever importa pouco nessa hora: as referências vão mostrar qual pesa mais. Objetivos gigantes, como levar gente à Lua ou erguer um arranha-céu, não cabem numa ação controlável só. Eles se quebram em subobjetivos, e cada um ganha o próprio plano. A regra do capítulo: qualquer objetivo que leve pelo menos algumas semanas passa pelas oito perguntas.</p>
+  <h4>Razão (cap. 9)</h4>
+  <p>Liste todas as razões e depois circule a principal. Um bom projeto se sustenta com uma razão só. Escrever o porquê dá dois ganhos. Clareza: quem quer "abrir um negócio" pode descobrir que o que busca é ganhar bem e fazer parte de algo grande, e que um cargo numa empresa em crescimento entrega isso melhor. Energia: quando o obstáculo chegar, a razão escrita segura. Vale também ao delegar. Dizer por que a tarefa importa muda o resultado mais do que dizer só o que fazer.</p>
+  <h4>Referência (cap. 10)</h4>
+  <p>Nenhum objetivo é totalmente novo, e o sucesso deixa pistas. Junte várias referências, não uma. O exemplo do capítulo é um amigo músico orientado a reunir trinta artistas que vivem de música, em três faixas de sucesso, para achar padrões de como começaram e de como ganham dinheiro. A analogia é a do bolo: quanto mais informação sobre ele, maior a chance de acertar.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Tipo de referência</th><th>Na analogia</th><th>O que é</th><th>Pergunta</th></tr></thead>
+    <tbody>
+      <tr><td><b>Princípios</b></td><td>Ingredientes</td><td>As variáveis e os fundamentos por trás do objetivo</td><td>Consigo entender o que realmente importa aqui?</td></tr>
+      <tr><td><b>Exemplos</b></td><td>O bolo pronto</td><td>Casos concluídos para analisar e desmontar</td><td>Consigo examinar algo que já foi feito?</td></tr>
+      <tr><td><b>Guias</b></td><td>A receita</td><td>Método documentado: livro, curso, passo a passo</td><td>Existe um roteiro comprovado?</td></tr>
+      <tr><td><b>Experts</b></td><td>O chef</td><td>Quem já fez várias vezes e pode orientar</td><td>Consigo falar com quem domina isso?</td></tr>
+    </tbody>
+  </table></div>
+  <h4>Rumo (cap. 11)</h4>
+  <p>Referência mostra quem já fez. Rumo mapeia como você vai fazer. O autor registra três listas:</p>
+  <ul>
+    <li><b>Etapas:</b> os grandes passos em ordem, cada um com responsável e prazo. Os 4Cs servem para escrever cada etapa também.</li>
+    <li><b>Ideias:</b> tudo o que passar pela cabeça, sem filtro. Duas perguntas ajudam: o que deixaria isso mais divertido? O que deixaria mais significativo?</li>
+    <li><b>Questões:</b> o que ainda não está claro. Responder cada uma vira parte do trabalho.</li>
+  </ul>
+  <p>Escrever as etapas já diminui a ansiedade, porque o caminho aparece. E elas mudam conforme você aprende.</p>
+  <h4>Recursos (cap. 12)</h4>
+  <p>Quatro tipos: dinheiro, material, pessoas e informação. A ideia central é que você não precisa possuir o recurso. Monte uma tabela com os recursos nas linhas e as quatro vias nas colunas, e veja o que cabe em cada uma.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Via</th><th>O que é</th><th>Custo escondido</th></tr></thead>
+    <tbody>
+      <tr><td><b>Pedir emprestado</b></td><td>Usar sem pagar agora</td><td>É uma troca adiada. A pessoa espera retribuição.</td></tr>
+      <tr><td><b>Trocar</b></td><td>Dar algo de valor em troca</td><td>Você abre mão do que tem.</td></tr>
+      <tr><td><b>Alugar</b></td><td>Pagar pelo uso temporário</td><td>Não dá para revender depois.</td></tr>
+      <tr><td><b>Comprar</b></td><td>Ficar com o recurso</td><td>É o mais rápido e o mais caro.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Os casos do capítulo mostram o empréstimo em três recursos. Estrutura: o primeiro evento do autor saiu com espaço, som, público e fotógrafa emprestados. Audiência: ache quem já tem o público, chegue com uma proposta irresistível e o trabalho pronto, e feche uma parceria de termos claros assumindo o máximo do esforço. Talento: ofereça aprendizado em troca de trabalho, ou abra um desafio com prêmio. O fecho é que quanto mais você tem a oferecer, mais consegue emprestado.</p>
+  <h4>Responsável (cap. 15)</h4>
+  <p>Para objetivo pessoal, a resposta é você. Com equipe, três critérios escolhem a pessoa: capacidade (já fez algo parecido?), disponibilidade (isso pode ser a prioridade dela?) e vontade (ela quer?). Em projeto novo, o autor olha a vontade primeiro, porque só habilidade não sustenta. Cada etapa do rumo e cada tarefa dentro dela também precisa de um dono.</p>
+  <p>O plano é documento vivo. Informação nova muda decisão, e é normal o objetivo ser refinado enquanto você planeja. Siga a ordem dos Rs, porque cada resposta facilita a próxima.</p>
+</section>
+
+<section id="executar" data-t="Parte III: Executar">
+  <h2>Parte III: Executar</h2>
+  <p class="src">Fonte: caps. 17 a 24</p>
+  <p class="key">Algumas habilidades se transferem para quase tudo. Quem domina essas seis começa qualquer objetivo com vantagem.</p>
+  <p>O capítulo 17 conta dois casos de transferência. Um campeão de wrestling pisa num tatame de jiu-jitsu pela primeira vez e segura até o instrutor faixa-preta. Uma advogada usa o hábito de ler material técnico para achar, em artigos médicos, a pista do tratamento da doença da filha, e depois funda a empresa que desenvolve o remédio. A pergunta do autor é quais habilidades se transferem mais. A resposta são as seis abaixo.</p>
+  <div class="skills wide">
+    <div class="skill"><span class="tag">RID</span><h3>1. Focar</h3><p class="res">Resultado: foco profundo quando você quiser. Cap. 18</p><ul><li><b>Recompensas:</b> lembrar conquistas antes de começar, lista de progresso visível, pequenas recompensas ao terminar, tempo de tédio para recalibrar.</li><li><b>Inércia:</b> compromissos, gatilhos de foco (mesma música, mesmo ritual), registro de onde parou, ampulheta.</li><li><b>Distrações:</b> separar criar de editar, anotar o pensamento que invade, tirar redes do aparelho, celular longe.</li></ul><p class="try"><b>Treino:</b> cronometre sessões e tente segurar um pouco mais a cada vez.</p></div>
+    <div class="skill"><span class="tag">PERG</span><h3>2. Pesquisar</h3><p class="res">Resultado: a informação certa, rápido. Cap. 19</p><ul><li><b>Pergunte:</b> o que eu preciso saber que muda minha decisão?</li><li><b>Explore:</b> quem tem a resposta? Procure quem acerta repetidamente e explica como.</li><li><b>Revise:</b> dá para confiar? Cruze especialistas. Bom demais ou ruim demais pede checagem.</li><li><b>Guarde:</b> registre o que foi difícil de achar.</li></ul><p class="try"><b>Treino:</b> antes de agir, pergunte que informação ajudaria. Fontes antes de fatos.</p></div>
+    <div class="skill"><span class="tag">DEAP</span><h3>3. Entender</h3><p class="res">Resultado: conhecimento que dura. Cap. 20</p><ul><li>Você entendeu quando consegue <b>D</b>efinir, <b>E</b>xplicar, <b>A</b>plicar e <b>P</b>rever.</li><li><b>Escrever:</b> explique simples, como para uma criança (Feynman).</li><li><b>Testar:</b> busque retorno corretivo, o mais útil dos três tipos.</li><li><b>Condensar:</b> agrupar, reduzir, organizar, comparar, visualizar, armazenar.</li></ul><p class="try"><b>Treino:</b> monte uma Aula Perfeita: título, princípios, processo, prática, publicação.</p></div>
+    <div class="skill"><span class="tag">CPT</span><h3>4. Idear</h3><p class="res">Resultado: muitas alternativas. Cap. 21</p><ul><li>Conhecimento × Pesquisa × Técnicas = Ideias. Quantidade vem antes de qualidade.</li><li><b>Referências:</b> diretas e indiretas, novas e antigas.</li><li><b>Restrições:</b> limite formato, meio ou orçamento e combine em matriz.</li><li><b>Reformulações:</b> engenharia reversa, desafiar premissas, trocar o ponto de vista, inverter.</li></ul><p class="try"><b>Sessão em 4 Is:</b> identificar, idear, incubar, instituir.</p></div>
+    <div class="skill"><span class="tag">CAA</span><h3>5. Decidir</h3><p class="res">Resultado: melhor caminho em menos tempo. Cap. 22</p><ul><li>Julgue a decisão pelo processo, não pelo resultado.</li><li>Baixo impacto: regra dos 30 segundos, agrupar decisões parecidas, heurísticas.</li><li>Ache o grande dominó: a decisão que elimina as outras.</li><li>Alto impacto se mede por <b>3 Ps</b>: potencial, período, pessoas.</li><li><b>Critérios</b> primeiro, depois <b>Alternativas</b> (nunca só duas), depois <b>Análise</b> em três níveis: de cabeça, planilha, protótipo.</li></ul><p class="try"><b>Treino:</b> uma tabela de critérios e alternativas para a próxima decisão grande.</p></div>
+    <div class="skill"><span class="tag">4 Cs</span><h3>6. Comunicar</h3><p class="res">Resultado: mensagem que cumpre o propósito. Cap. 23</p><ul><li><b>Consumidor:</b> comece por quem recebe. O que essa pessoa ganha?</li><li><b>Comunicador:</b> autoridade ou afinidade.</li><li><b>Canal:</b> escolha por alcance e por velocidade de retorno.</li><li><b>Conteúdo:</b> objetivo, informação, mensagem, modelo, mecanismo.</li></ul><p class="try"><b>Modelos prontos:</b> reunião (8Rs), atualização semanal (Progresso, Problemas, Prioridade), venda (6 Ps), mensagem fria (ABCCC).</p></div>
+  </div>
+</section>
+
+<section id="pesquisar" data-t="Mergulho: Pesquisar">
+  <h2>Mergulho: Pesquisar</h2>
+  <p class="src">Fonte: cap. 19, lido por inteiro</p>
+  <p class="key">A qualidade do resultado depende da qualidade da informação. E a informação mais fácil de achar quase nunca é a melhor.</p>
+  <p>O capítulo abre com a meta de Ano Novo mais comum, perder peso. Se tanta gente tenta todo ano, a meta deveria ir sumindo. Não some porque as pessoas seguem o que aparece primeiro na busca, e não o que tem evidência. O autor chama isso de princípio da disponibilidade e usa o caso para defender que pesquisar é a base de aprender, resolver e decidir.</p>
+  <h3>Dois modos de pesquisa</h3>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Modo</th><th>O que é</th><th>Risco</th><th>Quanto do seu tempo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Expansão</b></td><td>Ler sem pergunta definida, para ampliar repertório</td><td>Ficar presa colecionando ideia sem aplicar</td><td>Cerca de 20%</td></tr>
+      <tr><td><b>Solução</b></td><td>Buscar a resposta de uma pergunta concreta da tarefa atual</td><td>Nenhum relevante. É onde o progresso acontece</td><td>Cerca de 80%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">As proporções são a recomendação do autor, não uma medição.</p>
+  <h3>PERG, etapa por etapa</h3>
+  <h4>Pergunte</h4>
+  <p>Toda tarefa começa com uma checagem: eu tenho a informação certa? A pergunta de ouro é "que perguntas eu preciso responder aqui?". Variações úteis:</p>
+  <ul>
+    <li>Que única informação me faria decidir isso agora?</li>
+    <li>Que informação mudaria minha opinião, ou o que eu pretendo fazer?</li>
+    <li>O que eu preciso saber para confiar mais nas minhas suposições?</li>
+    <li>Que perguntas eu não estou me fazendo?</li>
+  </ul>
+  <h4>Explore</h4>
+  <p>Referência vem em quatro formas: princípios, exemplos, guias e especialistas. Para especialista, o critério do autor tem duas partes: <mark>repetição e explicação</mark>. Vale quem acertou mais de uma vez e consegue dizer como. O exemplo é Nikita Bier, que colocou dois aplicativos no topo da loja da Apple e publicou o método. Daí o apelido: ache o seu Nikita.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Caminho até a boa informação</th><th>Como funciona</th></tr></thead>
+    <tbody>
+      <tr><td>Comprar acesso</td><td>Consultoria, mentoria, hora paga. Simples, dentro do que você pode pagar.</td></tr>
+      <tr><td>Conquistar acesso</td><td>Curiosidade gera competência, competência gera respeito, respeito abre porta. Quanto mais você faz e mais gente sabe o que você faz, mais sorte aparece. Cave o poço antes da sede.</td></tr>
+      <tr><td>Entrar em um grupo ou criar um</td><td>Gente com a mesma ambição aprendendo junta. O exemplo é o grupo diário de criadores que o MrBeast manteve por mil dias.</td></tr>
+      <tr><td>Fontes acima de fatos</td><td>Comece por uma fonte em que você já confia e pesquise dentro dela, em vez de aceitar o primeiro resultado. No Google, o operador site: faz isso.</td></tr>
+      <tr><td>Banco de referências</td><td>Uma lista sua das melhores fontes por tema. Olhe também as referências das suas referências: nome que se repete merece atenção.</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Com IA.</b> A busca por palavra-chave deu lugar à pergunta completa e específica. O método tem quatro partes: intenção (o objetivo), informação (o contexto que a IA precisa), instrução (o pedido exato) e interação (nunca ficar na primeira resposta). A comparação do autor: o Google aponta onde a resposta pode estar, a IA entrega a resposta mais provável com base no que leu. Parte do conhecimento do mundo continua fora dela, na cabeça das pessoas e na realidade.</p>
+  <h4>Revise</h4>
+  <p>A pergunta é: quanta confiança eu tenho de que isso é verdade? O caso do capítulo é um cliente cujo uso parecia dez vezes maior que o contratado. Antes de cortar o acesso, o time conferiu os dados e achou um erro no gráfico.</p>
+  <ul>
+    <li><b>Afirmação científica:</b> veja em que altura da pirâmide de evidência ela está. Quanto mais alto, mais testada.</li>
+    <li><b>Afirmação não científica:</b> vá à fonte original ou triangule, ouvindo vários especialistas sobre a mesma questão.</li>
+    <li><b>Sem tempo:</b> use atalhos. Ruim demais para ser verdade costuma ser erro de medição. Afirmação extraordinária pede prova extraordinária. O mais disponível não é o mais correto. A explicação mais simples costuma ser a certa. Jargão em excesso é sinal de alerta.</li>
+  </ul>
+  <h4>Guarde</h4>
+  <p>O sistema importa mais que a ferramenta. Dois filtros decidem o que entra: vou usar isso depois? Foi difícil de achar? O capítulo fecha com a ponte para o seguinte: a melhor forma de guardar uma informação é entendê-la, porque quanto mais você sabe, menos precisa pesquisar.</p>
+</section>
+
+<section id="entender" data-t="Mergulho: Entender">
+  <h2>Mergulho: Entender</h2>
+  <p class="src">Fonte: cap. 20. Lido até o princípio Comparar; Visualizar e Armazenar vêm do resumo do próprio capítulo</p>
+  <p class="key">Conhecimento é informação que chegou à memória de longo prazo. Memorizar não leva até lá. Entender leva.</p>
+  <p>O exemplo de abertura: um número de telefone sem padrão precisa ser decorado. Um número em que cada parte é o dobro da anterior não precisa, basta perceber a regra. Entender é enxergar a regra.</p>
+  <h3>Três tipos de conhecimento</h3>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Tipo</th><th>É saber</th><th>Exemplo do livro: advogado</th><th>Melhor teste</th></tr></thead>
+    <tbody>
+      <tr><td><b>Factual</b></td><td>Fatos, nomes, definições</td><td>O número e o texto da lei</td><td>Cartões com repetição espaçada</td></tr>
+      <tr><td><b>Conceitual</b></td><td>Como as coisas se conectam</td><td>O que um contrato implica</td><td>Aula Perfeita</td></tr>
+      <tr><td><b>Processual</b></td><td>Fazer na prática</td><td>Redigir o contrato, defender no júri</td><td>Exercício isolado e aplicação direta</td></tr>
+    </tbody>
+  </table></div>
+  <p>Todo conhecimento fica entre o declarativo, que cabe em palavras, e o tácito, que é difícil de explicar, como andar de bicicleta. Quanto mais processual, mais difícil de adquirir e mais valioso. O DEAP funciona como lista de checagem: quem não consegue definir, explicar, aplicar nem prever ainda não entendeu.</p>
+  <h3>Escrever, Testar, Condensar</h3>
+  <p>Os três não precisam acontecer em ordem. Funcionam por quatro motivos: obrigam você a puxar a informação da memória em vez de reler, geram erro de previsão (a diferença entre o que você esperava e o que aconteceu, que é onde o aprendizado mora), dão retorno e criam repetição.</p>
+  <h4>Escrever</h4>
+  <p>Entendimento começa quando você produz, não quando consome. Na cabeça tudo parece claro. No papel a falha aparece. A pergunta de partida é "o que estou tentando entender aqui?". Escreva para você, separe escrever de revisar e olhe para o texto: só falar em voz alta dá retorno limitado.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Situação</th><th>Perguntas para destravar a escrita</th></tr></thead>
+    <tbody>
+      <tr><td>Antes de uma decisão importante</td><td>O que estou inclinada a decidir e por quê? O que mudaria minha opinião? Que informação melhoraria a decisão?</td></tr>
+      <tr><td>Quando travar</td><td>Onde travei e por quê? O que precisa acontecer para destravar? Qual é meu entendimento atual?</td></tr>
+      <tr><td>Depois de ler ou aprender algo</td><td>O que acabei de aprender? O que foi mais surpreendente? Como isso se liga ao que já sei? Como eu explicaria para outra pessoa?</td></tr>
+    </tbody>
+  </table></div>
+  <p>Isso é a Técnica de Feynman: explique como se fosse para uma criança, e onde travar, volte ao estudo. Com IA fica mais rápido: escreva sua versão e peça para conferir. O mantra do autor é <mark>chute, depois confirme</mark>. Tente prever a resposta antes de procurar, inclusive antes de ler o que a IA responde.</p>
+  <h4>Testar</h4>
+  <p>Testar é buscar retorno. Duas perguntas escolhem a técnica: que tipo de conhecimento é esse, e quanto retorno eu consigo obter? O retorno tem três graus: de resultado (deu certo ou não), informacional (o que deu certo e o que não) e corretivo (como melhorar). O corretivo é o que mais ensina.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Técnica</th><th>Quando usar</th><th>Como</th></tr></thead>
+    <tbody>
+      <tr><td><b>Exercício isolado</b></td><td>Habilidade prática</td><td>Treine uma parte só, em ambiente controlado: escalas na música, ligação simulada em vendas. Assunto novo pede que você invente o exercício.</td></tr>
+      <tr><td><b>Aula Perfeita</b></td><td>Conhecimento conceitual</td><td>Cinco etapas, descritas abaixo. É a técnica favorita do autor.</td></tr>
+      <tr><td><b>Cartões</b></td><td>Fato e definição</td><td>Pergunta na frente, resposta atrás, repetição espaçada. Dá para acertar sem entender, por isso o autor usa pouco.</td></tr>
+      <tr><td><b>Aplicação direta</b></td><td>Qualquer coisa que dê para pôr no mundo</td><td>Melhore o retorno com três perguntas: dá para ser mais profundo (trazer um especialista)? Mais rápido (encurtar o ciclo)? Maior (mais gente, mais repetições)? Regra das cem repetições: faça cem vezes antes de julgar.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>A Aula Perfeita em cinco etapas</h3>
+  <ol>
+    <li><b>Título perfeito.</b> Resultado dos sonhos mais uma restrição de tempo, formato ou objeção. O título serve para dar energia a quem vai estudar, que é você.</li>
+    <li><b>Princípios.</b> Faça perguntas, reúna respostas, agrupe. Responda: o que realmente importa aqui?</li>
+    <li><b>Processo.</b> O passo a passo que leva a resultado consistente. Cada princípio pode virar um processo.</li>
+    <li><b>Prática.</b> Pelo menos algumas formas simples de exercitar.</li>
+    <li><b>Publicação.</b> Ensine. Para dominar de verdade, coloque algo em jogo: uma plateia, uma data, uma venda.</li>
+  </ol>
+  <p>O autor diz que os próprios capítulos do livro seguem essa ordem, e que uma aula pode virar um PGG. Tem um planejador dela nas ferramentas abaixo.</p>
+  <h3>Condensar</h3>
+  <p>Condensar é reduzir a informação para deixá-la mais útil ou mais fácil de lembrar. A história usada é a dos números: riscos na parede, depois algarismos romanos, depois os hindu-arábicos. Cada versão condensou melhor que a anterior, e a lição é que nenhuma condensação é definitiva. Comece e melhore.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Verbo</th><th>O que fazer</th><th>Detalhe do capítulo</th></tr></thead>
+    <tbody>
+      <tr><td><b>Agrupar</b></td><td>Juntar o que é parecido em categorias</td><td>Mestres de xadrez lembram posições reais porque veem blocos, não peças. Com peças aleatórias, lembram tanto quanto amadores. Para criar categorias: liste exemplos, escolha as variáveis, decida se agrupa por forma ou função e confira se os itens estão no mesmo nível.</td></tr>
+      <tr><td><b>Reduzir</b></td><td>Cortar o que sobra</td><td>Diminua o escopo, troque palavra difícil por simples, crie um mantra ou uma frase curta.</td></tr>
+      <tr><td><b>Organizar</b></td><td>Pôr em ordem lógica</td><td>Troncos antes dos galhos: fundamentos primeiro. Pergunte se aquilo é processo, ciclo ou ciclo que se reforça. Foi assim que os 8Rs nasceram.</td></tr>
+      <tr><td><b>Comparar</b></td><td>Achar semelhança e diferença</td><td>Analogia e metáfora. Boa analogia é concreta e foge do clichê.</td></tr>
+      <tr><td><b>Visualizar</b></td><td>Dar forma</td><td>Espectro, matriz, diagrama, mapa mental.</td></tr>
+      <tr><td><b>Armazenar</b></td><td>Fixar</td><td>Acrônimo, mnemônico, frase que gruda.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="idear" data-t="Mergulho: Idear">
+  <h2>Mergulho: Idear</h2>
+  <p class="src">Fonte: cap. 21, lido por inteiro</p>
+  <p class="key">O jeito mais fácil de ter uma boa ideia é ter noventa e nove ruins antes. Ideia, opção e alternativa são a mesma coisa, e toda decisão importante deveria começar por uma lista delas.</p>
+  <p>Quem diz que nunca tem boa ideia quase sempre também não tem ideias ruins para mostrar. O autor trata "não sou criativa" como crença que se confirma sozinha: quem acredita não tenta, e quem não tenta não produz evidência do contrário.</p>
+  <h3>A equação</h3>
+  <p>No corpo do capítulo a conta é: conhecimento ao quadrado, mais pesquisa, vezes técnicas. No resumo final ela aparece simplificada como Conhecimento × Pesquisa × Técnicas. O ponto é o mesmo. Conhecimento pesa mais porque cada item novo se combina com todos os outros: quem conhece cem palavras que rimam faz dez mil pares, quem conhece dez faz cem. Pesquisa é o que está fresco na cabeça para a tarefa. Técnica multiplica os dois.</p>
+  <p class="note">A equação é um modelo para lembrar, não uma fórmula medida.</p>
+  <h3>A pirâmide: três famílias de técnica</h3>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Nível</th><th>Pergunta</th><th>Volume de ideias</th><th>Novidade</th></tr></thead>
+    <tbody>
+      <tr><td><b>Base: Referências</b></td><td>Quais são os grandes exemplos do que eu quero fazer?</td><td>Alto</td><td>Baixa</td></tr>
+      <tr><td><b>Meio: Restrições</b></td><td>Para este tema, posso pensar em restrições em termos de...?</td><td>Médio</td><td>Média</td></tr>
+      <tr><td><b>Topo: Reformulações</b></td><td>Posso reformular a pergunta?</td><td>Menor</td><td>Alta</td></tr>
+    </tbody>
+  </table></div>
+  <h4>Referências</h4>
+  <p>Dois erros comuns: olhar só para quem é do mesmo ramo e olhar só para o que é recente. A saída é preencher os quatro quadrantes.</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th></th><th>Diretas, do mesmo ramo</th><th>Indiretas, de outro ramo</th></tr></thead>
+    <tbody>
+      <tr><th>Novas</th><td>O que os concorrentes fazem hoje. No livro: renomear um produto seguindo o padrão de nome da categoria.</td><td>O que funciona agora em outro mercado. No livro: uma promoção copiada de uma marca de café.</td></tr>
+      <tr><th>Antigas</th><td>Clássicos do seu ramo.</td><td>Onde o autor diz achar as melhores ideias. No livro: uma campanha inspirada em um anúncio de cerca de cem anos.</td></tr>
+    </tbody>
+  </table></div>
+  <h4>Restrições</h4>
+  <p>Parece contraditório, mas limite ajuda. Pensar em cinco raças de cachorro é mais fácil que pensar em cinco animais quaisquer. Complete a frase da tabela acima com categorias. Para conteúdo, por exemplo: tipo, quem apresenta, mídia, objetivo. Cruzar as categorias dá a <mark>matriz de ideação</mark>, e cada combinação é uma ideia. O autor mostra que os vídeos do MrBeast cabem em quatro moldes multiplicados por temas e prêmios. Mantenha entre três e sete grupos.</p>
+  <ul>
+    <li><b>Palavra aleatória:</b> pegue uma palavra qualquer e force a ligação com o seu tema. É o treino mais rápido de ideação.</li>
+    <li><b>Restrição de recursos:</b> e se eu tivesse 1% do tempo, do dinheiro ou das pessoas? Vale para orçamento, prazo, equipe e formato.</li>
+  </ul>
+  <h4>Reformulações</h4>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Técnica</th><th>Pergunta</th><th>Caso do livro</th></tr></thead>
+    <tbody>
+      <tr><td><b>Engenharia reversa</b></td><td>Já deu certo. Qual foi o passo anterior? E o anterior a esse?</td><td>Para palestrar num evento grande, o autor voltou os passos até criar o próprio evento.</td></tr>
+      <tr><td><b>Questionar premissas</b></td><td>Que regra oculta estou seguindo? E se ela caísse?</td><td>A premissa de vender um produto específico caiu e virou um kit surpresa de Natal.</td></tr>
+      <tr><td><b>Alterar a perspectiva</b></td><td>Pelos olhos de quem vale olhar?</td><td>Pensar como o peixe, não como o pescador: um chatbot que vende a si mesmo.</td></tr>
+      <tr><td><b>Inverter</b></td><td>O que tornaria isso terrível? Agora inverta.</td><td>Os valores da empresa saíram do que os sócios não queriam em um colaborador. Boa para definir critérios.</td></tr>
+      <tr><td><b>Expandir recursos</b></td><td>E se eu tivesse cem vezes mais tempo, dinheiro ou gente?</td><td>Perguntar quem seria a melhor pessoa do mundo para falar do produto.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Questionar premissas é a primeira que o autor usa quando trava.</p>
+  <h3>A sessão de ideação em 4 Is</h3>
+  <p>É uma Sessão Pragmática de ideias: número de ideias, alvo, formato e tempo definidos. Vem depois da pesquisa.</p>
+  <ol>
+    <li><b>Identificar</b> três coisas. O nível em que você está ideando (empresa, produto, funcionalidade: quanto mais alto, mais importa). O formato de registro, igual para todas as ideias, para poder comparar. O gargalo, olhando a equação: falta conhecimento (chame alguém experiente), pesquisa (faça mais perguntas) ou técnica (aplique outra)?</li>
+    <li><b>Idear</b> na ordem da pirâmide. Cada pessoa gera ideias sozinha antes do grupo. Gerar e criticar são momentos separados.</li>
+    <li><b>Incubar.</b> Descanso, cochilo, tédio. As conexões se formam fora da mesa.</li>
+    <li><b>Instituir,</b> se a demanda for recorrente: fontes salvas, categorias fixas e uma reformulação de estimação.</li>
+  </ol>
+  <p><b>Treinos do capítulo:</b> depois de um filme ou podcast, pergunte como você melhoraria aquilo. Marque sessões com meta numérica e prazo. Decore a matriz de referências e a frase das restrições.</p>
+</section>
+
+<section id="ferramentas" data-t="Ferramentas para preencher">
+  <h2>Ferramentas para preencher</h2>
+  <p class="src">O que você digitar fica salvo só neste navegador</p>
+
+  <div class="tool wide" id="t-pgg">
+    <h3>Construtor de PGG</h3>
+    <p class="hint">Pegue um desejo e passe pelos quatro Cs. A frase se monta sozinha.</p>
+    <div class="fields">
+      <label for="pgg-desejo">Desejo de partida<small>Do jeito vago que ele aparece na sua cabeça</small><input type="text" id="pgg-desejo" data-k="pgg-desejo"></label>
+      <label for="pgg-prazo">Conciso: prazo<small>Posso encurtar?</small><input type="text" id="pgg-prazo" data-k="pgg-prazo"></label>
+      <label for="pgg-coragem">Corajoso: resultado<small>Um zero a mais, um superlativo ou interesses juntos</small><input type="text" id="pgg-coragem" data-k="pgg-coragem"></label>
+      <label for="pgg-controle">Controlável: ações<small>Criar, competir, organizar, publicar. Ou repetições e horas</small><input type="text" id="pgg-controle" data-k="pgg-controle"></label>
+      <label for="pgg-compromisso">Comprometido<small>Social, financeiro ou de ambiente</small><input type="text" id="pgg-compromisso" data-k="pgg-compromisso"></label>
+    </div>
+    <div class="out" id="pgg-out" aria-live="polite"></div>
+    <div class="chips" id="pgg-chips"><span class="chip" data-c="pgg-prazo">Conciso</span><span class="chip" data-c="pgg-coragem">Corajoso</span><span class="chip" data-c="pgg-controle">Controlável</span><span class="chip" data-c="pgg-compromisso">Comprometido</span></div>
+    <div class="row"><button type="button" data-copy="pgg">Copiar PGG</button><button type="button" class="ghost" data-clear="pgg-">Limpar</button><span class="said" id="pgg-said"></span></div>
+    <textarea class="fallback" id="pgg-fb" readonly aria-label="Texto do PGG para copiar"></textarea>
+  </div>
+
+  <div class="tool wide" id="t-pmv">
+    <h3>Plano Mínimo Viável</h3>
+    <p class="hint">Oito perguntas, na ordem. O autor pede pelo menos uma hora. O botão copia tudo em Markdown para colar no Notion.</p>
+    <div class="fields" id="pmv-fields"></div>
+    <div class="row" style="margin-top:14px"><button type="button" data-copy="pmv">Copiar plano em Markdown</button><button type="button" class="ghost" data-clear="pmv-">Limpar</button><span class="said" id="pmv-said"></span></div>
+    <textarea class="fallback" id="pmv-fb" readonly aria-label="Plano em Markdown para copiar"></textarea>
+  </div>
+
+  <div class="tool wide" id="t-sp">
+    <h3>Sessão Pragmática</h3>
+    <p class="hint">A frase que o cap. 18 propõe para transformar uma tarefa solta em sessão de foco.</p>
+    <div class="fields">
+      <label for="sp-tarefa">Vou<small>a tarefa, com verbo</small><input type="text" id="sp-tarefa" data-k="sp-tarefa"></label>
+      <label for="sp-alvo">que<small>o alvo, o que ela precisa atingir</small><input type="text" id="sp-alvo" data-k="sp-alvo"></label>
+      <label for="sp-tangivel">produzindo<small>o tangível que sai no fim</small><input type="text" id="sp-tangivel" data-k="sp-tangivel"></label>
+      <label for="sp-tempo">em<small>o tempo da sessão</small><input type="text" id="sp-tempo" data-k="sp-tempo"></label>
+    </div>
+    <div class="out" id="sp-out" aria-live="polite"></div>
+    <div class="row"><button type="button" data-copy="sp">Copiar sessão</button><button type="button" class="ghost" data-clear="sp-">Limpar</button><span class="said" id="sp-said"></span></div>
+    <textarea class="fallback" id="sp-fb" readonly aria-label="Sessão para copiar"></textarea>
+  </div>
+
+  <div class="tool wide" id="t-ap">
+    <h3>Planejador de Aula Perfeita</h3>
+    <p class="hint">As cinco etapas do cap. 20. Sirva-se dela para estudar este livro ou qualquer outro tema.</p>
+    <div class="fields">
+      <label for="ap-titulo">1. Título perfeito<small>Resultado dos sonhos mais uma restrição</small><input type="text" id="ap-titulo" data-k="ap-titulo" placeholder="Como [resultado] em [tempo, formato ou sem uma objeção]"></label>
+      <label for="ap-publicacao">5. Publicação<small>Para quem, quando, e o que fica em jogo</small><input type="text" id="ap-publicacao" data-k="ap-publicacao" placeholder="Quem assiste, em que data"></label>
+      <label for="ap-principios">2. Princípios<small>O que realmente importa aqui?</small><textarea id="ap-principios" data-k="ap-principios"></textarea></label>
+      <label for="ap-processo">3. Processo<small>O passo a passo que leva ao resultado</small><textarea id="ap-processo" data-k="ap-processo"></textarea></label>
+      <label for="ap-pratica">4. Prática<small>Como quem assiste pode exercitar</small><textarea id="ap-pratica" data-k="ap-pratica"></textarea></label>
+    </div>
+    <div class="row" style="margin-top:14px"><button type="button" data-copy="ap">Copiar aula em Markdown</button><button type="button" class="ghost" data-clear="ap-">Limpar</button><span class="said" id="ap-said"></span></div>
+    <textarea class="fallback" id="ap-fb" readonly aria-label="Aula em Markdown para copiar"></textarea>
+  </div>
+
+  <div class="tool wide" id="t-mi">
+    <h3>Matriz de ideação</h3>
+    <p class="hint">A técnica de restrições do cap. 21. Escreva de três a cinco categorias, uma por linha, no formato Nome: opção, opção, opção. O sorteio cruza uma opção de cada.</p>
+    <div class="fields one">
+      <label for="mi-tema">Tema<small>Sobre o que você quer ideias</small><input type="text" id="mi-tema" data-k="mi-tema"></label>
+      <label for="mi-cats">Para este tema, posso pensar em restrições em termos de...<small>Uma categoria por linha</small><textarea id="mi-cats" data-k="mi-cats" style="min-height:120px"></textarea></label>
+    </div>
+    <div class="row" style="margin-top:14px"><button type="button" id="mi-go">Sortear 5 combinações</button><button type="button" class="ghost" data-clear="mi-">Limpar</button><span class="count" id="mi-total"></span></div>
+    <ol class="out" id="mi-out" style="padding-left:2em" aria-live="polite"></ol>
+  </div>
+</section>
+
+<section id="treino" data-t="Treino: cartões e quiz">
+  <h2>Treino: cartões e quiz</h2>
+  <p class="src">O cap. 20 recomenda cartões com repetição espaçada para o que é factual. O livro tem muita sigla, então elas viraram cartões.</p>
+  <div class="tool wide">
+    <h3>Cartões das siglas</h3>
+    <p class="hint">Tente responder de cabeça antes de virar. Chute antes de conferir.</p>
+    <button type="button" class="card" id="fc" aria-live="polite"><span class="side" id="fc-side"></span><span class="txt" id="fc-txt"></span></button>
+    <div class="row" style="margin-top:12px"><button type="button" class="ghost" id="fc-prev">Anterior</button><button type="button" id="fc-flip">Virar</button><button type="button" class="ghost" id="fc-next">Próximo</button><button type="button" class="ghost" id="fc-mix">Embaralhar</button><span class="count" id="fc-count"></span></div>
+  </div>
+  <div class="tool wide">
+    <h3>Quiz de entendimento</h3>
+    <p class="hint">Quinze perguntas de aplicação. Cada resposta vem com o porquê e o capítulo.</p>
+    <div id="quiz"></div>
+    <p class="score" id="score" aria-live="polite"></p>
+  </div>
+</section>
+
+<section id="sete-dias" data-t="Roteiro de 7 dias">
+  <h2>Roteiro de 7 dias</h2>
+  <p class="src">Sugestão desta página, montada com as ferramentas do livro. Não é um plano do autor.</p>
+  <p>Cada dia usa uma parte do método e tem um critério de pronto. A ordem segue o livro: definir, planejar, executar.</p>
+  <ul class="days wide" id="days"></ul>
+</section>
+
+<section id="ia" data-t="Usar com IA">
+  <h2>Usar com IA</h2>
+  <p class="src">Prompts desta página. O cap. 19 dá a estrutura: intenção, informação, instrução, interação.</p>
+  <div id="prompts" class="wide"></div>
+</section>
+
+<section id="critica" data-t="Leitura crítica">
+  <h2>Leitura crítica</h2>
+  <p class="src">Análise desta página, não do livro</p>
+  <p>O método é útil e bem organizado. Vale ler com estes cinco cuidados.</p>
+  <h3>1. Os casos são todos de quem venceu</h3>
+  <p>Edison, Musk, Airbnb, a própria empresa do autor. O livro não mostra quem aplicou os mesmos princípios e não chegou. Use os casos como ilustração do método, não como prova de que ele garante resultado.</p>
+  <h3>2. Edison contra Tesla é parábola</h3>
+  <p>A comparação funciona para fixar a ideia, mas reduz duas biografias complexas a um contraste limpo. Para a tese do livro isso basta. Para falar de história, procure outra fonte.</p>
+  <h3>3. A parte de dopamina é simplificada</h3>
+  <p>As táticas de foco são boas de testar. A explicação neuroquímica que as acompanha é versão de divulgação. Trate cada tática como experimento pessoal e fique com o que funcionar na sua medição.</p>
+  <h3>4. Corajoso e comprometido têm custo</h3>
+  <p>Para quem já está sobrecarregada, prazo curto com aposta pública vira mais pressão. O antídoto está no próprio livro, no capítulo de Restrições. Preencha esse R com o mesmo cuidado dos outros.</p>
+  <h3>5. Muita sigla, e várias nasceram em inglês</h3>
+  <p>O autor avisa que escreveu a primeira versão em inglês e que alguns acrônimos funcionam melhor lá. Na prática, três bastam para começar: 4Cs, 8Rs e as seis habilidades.</p>
+  <h3>6. Números de saúde e de desempenho sem fonte no texto</h3>
+  <p>O cap. 19 usa exemplos de nutrição e saúde, como faixa de déficit calórico, quantidade de proteína e comparação entre vitaminas, e o cap. 20 afirma que a maioria dos melhores colocados em provas usa cartões. No texto que li, essas afirmações aparecem sem referência ao lado. Elas servem para ilustrar o método de pesquisa. Não as use como orientação de saúde sem conferir a fonte, que é exatamente o que o capítulo ensina a fazer.</p>
+  <p class="note">O autor também reconhece o que ficou de fora. Temas como o risco de ser pragmático demais e objetivos sem fim, como ser feliz, ele remete ao site maxpeters.ai.</p>
+</section>
+
+<section id="conexoes" data-t="Conexões">
+  <h2>Conexões</h2>
+  <p class="src">Só obras e fontes que o próprio autor cita</p>
+  <div class="tablewrap wide"><table>
+    <thead><tr><th>Obra ou fonte</th><th>Onde aparece</th><th>Para que serve aqui</th></tr></thead>
+    <tbody>
+      <tr><td><i>How Big Things Get Done</i>, Flyvbjerg e Gardner</td><td>Cap. 7</td><td>Base do argumento sobre planejamento. O autor indica como leitura complementar.</td></tr>
+      <tr><td><i>My Life in Advertising</i>, Claude Hopkins</td><td>Como ler, Introdução</td><td>Exemplo de livro que não envelhece. É o que ele recomenda ao time de marketing.</td></tr>
+      <tr><td><i>The Great CEO Within</i>, Matt Mochary</td><td>Como ler</td><td>Modelo de livro referência, com receitas para consulta.</td></tr>
+      <tr><td><i>Breakthrough Advertising</i>, Eugene Schwartz</td><td>Como ler</td><td>Desejo do cliente e sofisticação de mercado.</td></tr>
+      <tr><td>Técnica de Feynman</td><td>Cap. 20</td><td>Explicar simples para testar se entendeu.</td></tr>
+      <tr><td>Exercício de definição de medos, Tim Ferriss</td><td>Cap. 14</td><td>Perguntar qual é o pior cenário antes de travar diante de um risco.</td></tr>
+      <tr><td>Heurística de Derek Sivers</td><td>Cap. 22</td><td>Só seguir com o que empolga de verdade.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Material do autor: modelo do Plano Mínimo Viável e a ilustração do livro em uma página estão em maxpeters.ai/livro, segundo o próprio livro.</p>
+</section>
+
+<footer>
+  <div class="art">
+    <img src="img/rodape-inteligencia.webp" width="2172" height="724" loading="lazy" alt="Inteligência Pragmática, página de estudo baseada no livro de Max Peters. Três partes, 24 capítulos, estudo interativo.">
+    <a class="hot" href="#definir" aria-label="Abrir Parte I: Definir" style="left:10.9%;top:48.0%;width:14.8%;height:11.2%"></a><a class="hot" href="#planejar" aria-label="Abrir Parte II: Planejar" style="left:27.7%;top:48.0%;width:15.3%;height:11.2%"></a><a class="hot" href="#executar" aria-label="Abrir Parte III: Executar" style="left:45.0%;top:48.0%;width:15.4%;height:11.2%"></a><a class="hot" href="#mapa" aria-label="Começar a leitura" style="left:52.3%;top:65.3%;width:19.4%;height:10.9%"></a><a class="hot" href="#mapa" aria-label="O livro em uma página" style="left:8.6%;top:66.2%;width:14.9%;height:7.5%"></a><a class="hot" href="#ferramentas" aria-label="Ferramentas" style="left:26.1%;top:66.2%;width:8.7%;height:7.5%"></a><a class="hot" href="#treino" aria-label="Quiz" style="left:37.2%;top:66.2%;width:4.0%;height:7.5%"></a><a class="hot" href="#ia" aria-label="Prompts" style="left:43.4%;top:66.2%;width:6.3%;height:7.5%"></a>
+  </div>
+  <div class="sign">
+    <img src="img/logo-jayai-v.png" width="282" height="360" loading="lazy" alt="Jay.AI">
+    <p>Página de estudo pessoal, escrita com palavras próprias a partir da leitura do livro. Não substitui a obra. Os exemplos e números citados são do autor e trazem o capítulo de origem.</p>
+  </div>
+</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var store={get:function(k){try{return localStorage.getItem('ip-'+k)}catch(e){return null}},
+             set:function(k,v){try{localStorage.setItem('ip-'+k,v)}catch(e){}},
+             del:function(k){try{localStorage.removeItem('ip-'+k)}catch(e){}}};
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  function el(t,a,h){var e=document.createElement(t);if(a)for(var k in a)e.setAttribute(k,a[k]);if(h!=null)e.innerHTML=h;return e}
+
+  /* ---------- índice e progresso ---------- */
+  var secs=$$('main section'), toc=$('#toc');
+  var groups={mapa:'Resumo',pesquisar:'Mergulho',ferramentas:'Prática',critica:'Além do livro'};
+  secs.forEach(function(s,i){
+    var n=(i+1<10?'0':'')+(i+1), h=$('h2',s);
+    var tb=el('button',{type:'button','aria-expanded':'false','aria-controls':'body-'+s.id},'<span class="n">'+n+'</span><span class="t">'+h.innerHTML+'</span>');
+    h.innerHTML='';h.appendChild(tb);
+    var body=el('div',{class:'body',id:'body-'+s.id});
+    Array.prototype.slice.call(s.children).forEach(function(c){if(c!==h&&!(c.classList&&c.classList.contains('src')))body.appendChild(c)});
+    s.appendChild(body);s._body=body;s._tb=tb;
+    tb.addEventListener('click',function(){setOpen(s,!s.classList.contains('open'))});
+    if(groups[s.id]){var g=el('li',{class:'grp','aria-hidden':'true'},groups[s.id]);toc.appendChild(g)}
+    var li=el('li',{'data-s':s.id},'<a href="#'+s.id+'"><span class="n">'+n+'</span><span class="t">'+s.getAttribute('data-t')+'</span></a>');
+    toc.appendChild(li);
+    var w=el('p',{class:'donebtn'}), b=el('button',{type:'button'},'Marcar seção como estudada');
+    b.addEventListener('click',function(){var on=store.get('done-'+s.id)==='1';store.set('done-'+s.id,on?'0':'1');paint()});
+    w.appendChild(b);body.appendChild(w);s._btn=b;s._li=li;
+    $('a',li).addEventListener('click',function(){setOpen(s,true)});
+  });
+  function setOpen(s,on){s.classList.toggle('open',on);s._tb.setAttribute('aria-expanded',on?'true':'false');syncAll()}
+  function syncAll(){var any=secs.some(function(s){return s.classList.contains('open')});$('#all-toggle').textContent=any?'Recolher todas':'Abrir todas'}
+  $('#all-toggle').addEventListener('click',function(){var any=secs.some(function(s){return s.classList.contains('open')});secs.forEach(function(s){setOpen(s,!any)})});
+  function fromHash(){var id=(location.hash||'').slice(1);var s=id&&document.getElementById(id);if(s&&s._tb){setOpen(s,true);s.scrollIntoView()}}
+  window.addEventListener('hashchange',fromHash);
+  document.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a[href^="#"]'):null;if(!a)return;
+    var s=document.getElementById(a.getAttribute('href').slice(1));if(s&&s._tb)setOpen(s,true)});
+  var root=document.documentElement,tt=$('#theme-toggle');
+  function setTheme(light){root.classList.toggle('light',light);tt.textContent=light?'Tema escuro':'Tema claro'}
+  setTheme(store.get('theme')==='light');
+  tt.addEventListener('click',function(){var l=!root.classList.contains('light');setTheme(l);store.set('theme',l?'light':'dark')});
+  function paint(){
+    var d=0;
+    secs.forEach(function(s){var on=store.get('done-'+s.id)==='1';if(on)d++;
+      s._li.classList.toggle('done',on);s._btn.classList.toggle('is',on);
+      s._btn.textContent=on?'Estudada. Clique para desmarcar':'Marcar seção como estudada';
+      $('.n',s._li).textContent=on?'ok':$('h2 .n',s).textContent;});
+    $('#bar').style.width=(d/secs.length*100)+'%';
+    $('#pct').textContent=d+' de '+secs.length+' seções estudadas';
+  }
+
+  /* ---------- campos salvos ---------- */
+  var R=[['resultado','Resultado','Qual resultado eu busco? Cole aqui o seu PGG'],
+         ['razao','Razão','Por que eu quero isso?'],
+         ['referencia','Referência','Quem já fez algo parecido? Liste princípios, exemplos, guias e experts'],
+         ['rumo','Rumo','Etapas com responsável e prazo. Depois, ideias e questões em aberto'],
+         ['recursos','Recursos','Dinheiro, materiais, pessoas e informações. O que dá para pedir emprestado, trocar ou alugar?'],
+         ['restricoes','Restrições','Do que eu não abro mão? O que faria o sucesso parecer fracasso?'],
+         ['riscos','Riscos','O que pode me impedir? Qual vulnerabilidade minha eu consigo reduzir?'],
+         ['responsavel','Responsável','Quem responde pelo todo e por cada etapa? Tem capacidade, disponibilidade e vontade?']];
+  var pf=$('#pmv-fields');
+  R.forEach(function(r,i){pf.appendChild(el('label',{for:'pmv-'+r[0]},(i+1)+'. '+r[1]+'<small>'+r[2]+'</small><textarea id="pmv-'+r[0]+'" data-k="pmv-'+r[0]+'"></textarea>'))});
+
+  var examples={'pgg-desejo':'Estudar o livro Inteligência Pragmática','pgg-prazo':'14 dias','pgg-coragem':'dar uma aula de 20 minutos sobre o método para 10 pessoas','pgg-controle':'preencher um PGG e um Plano Mínimo Viável meus e montar a aula com título, princípios, processo e prática','pgg-compromisso':'marcar a data e avisar o grupo hoje',
+                'mi-tema':'Conteúdo sobre o que aprendi neste livro (exemplo, troque pelo seu)','mi-cats':'Tipo: tutorial, lista, bastidor, desafio\nMídia: carrossel, vídeo curto, texto\nObjetivo: ensinar, provar, aproximar\nFerramenta do livro: PGG, 8Rs, PERG, DEAP',
+                'sp-tarefa':'escrever o roteiro da aula','sp-alvo':'explique os 4Cs com um exemplo meu','sp-tangivel':'uma página pronta para revisar','sp-tempo':'50 minutos'};
+  var first=store.get('seeded')!=='1';
+  $$('[data-k]').forEach(function(f){
+    var k=f.getAttribute('data-k'), v=store.get('f-'+k);
+    if(v==null&&examples[k]&&(first||k.indexOf('mi-')===0))v=examples[k];
+    if(v!=null)f.value=v;
+    f.addEventListener('input',function(){store.set('f-'+k,f.value);render()});
+  });
+  if(first){store.set('seeded','1');['t-pgg','t-sp'].forEach(function(id){var h=$('#'+id+' .hint');h.innerHTML+=' <b>Os campos abrem com um exemplo. Apague e escreva o seu.</b>'})}
+  function v(id){var e=document.getElementById(id);return e?e.value.trim():''}
+
+  function pggText(){
+    var p=v('pgg-prazo'),c=v('pgg-coragem'),a=v('pgg-controle'),m=v('pgg-compromisso');
+    if(!p&&!c&&!a&&!m)return '';
+    var s=(p?'Em '+p+', vou ':'Vou ')+(a||'[ações que dependem só de mim]')+' para '+(c||'[resultado corajoso]')+'.';
+    if(m)s+=' Meu compromisso: '+m+'.';
+    return s;
+  }
+  function spText(){
+    var a=v('sp-tarefa'),b=v('sp-alvo'),c=v('sp-tangivel'),d=v('sp-tempo');
+    if(!a&&!b&&!c&&!d)return '';
+    return 'Vou '+(a||'[tarefa]')+' que '+(b||'[alvo]')+', produzindo '+(c||'[tangível]')+', em '+(d||'[tempo]')+'.';
+  }
+  function pmvText(){
+    var s='# Plano Mínimo Viável\n';
+    R.forEach(function(r){s+='\n## '+r[1]+'\n'+(v('pmv-'+r[0])||'_a preencher_')+'\n'});
+    return s;
+  }
+  function render(){
+    $('#pgg-out').textContent=pggText()||'Preencha os campos e o seu PGG aparece aqui.';
+    $('#sp-out').textContent=spText()||'Preencha os campos e a sua sessão aparece aqui.';
+    $$('#pgg-chips .chip').forEach(function(c){c.classList.toggle('on',!!v(c.getAttribute('data-c')))});
+    miTotal();
+  }
+  function apText(){
+    var A=[['titulo','Título perfeito'],['principios','Princípios'],['processo','Processo'],['pratica','Prática'],['publicacao','Publicação']];
+    var s='# Aula Perfeita\n';A.forEach(function(a){s+='\n## '+a[1]+'\n'+(v('ap-'+a[0])||'_a preencher_')+'\n'});return s;
+  }
+  function miCats(){
+    return v('mi-cats').split('\n').map(function(l){var i=l.indexOf(':');if(i<0)return null;
+      var o=l.slice(i+1).split(',').map(function(x){return x.trim()}).filter(Boolean);
+      return o.length?{n:l.slice(0,i).trim(),o:o}:null}).filter(Boolean);
+  }
+  function miTotal(){var c=miCats(),t=c.reduce(function(a,x){return a*x.o.length},c.length?1:0);
+    $('#mi-total').textContent=c.length?c.length+' categorias, '+t+' combinações possíveis':'';return c}
+  $('#mi-go').addEventListener('click',function(){
+    var c=miTotal(),out=$('#mi-out');out.innerHTML='';
+    if(c.length<2){out.appendChild(el('li',null,'Escreva pelo menos duas categorias no formato Nome: opção, opção.'));return}
+    for(var i=0;i<5;i++){var li=el('li');li.textContent=c.map(function(x){return x.n+': '+x.o[Math.floor(Math.random()*x.o.length)]}).join(' · ');out.appendChild(li)}
+  });
+  var texts={pgg:function(){var d=v('pgg-desejo');return (d?'Desejo: '+d+'\n':'')+'PGG: '+pggText()},pmv:pmvText,sp:spText,ap:apText};
+  function copy(txt,saidEl,fbEl){
+    function ok(){saidEl.textContent='Copiado';setTimeout(function(){saidEl.textContent=''},2000)}
+    function fb(){if(fbEl){fbEl.value=txt;fbEl.classList.add('show');fbEl.focus();fbEl.select();saidEl.textContent='Selecione e copie o texto abaixo'}}
+    try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(e){fb()}
+  }
+  $$('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-copy');copy(texts[k](),$('#'+k+'-said'),$('#'+k+'-fb'))})});
+  $$('[data-clear]').forEach(function(b){b.addEventListener('click',function(){var p=b.getAttribute('data-clear');$$('[data-k^="'+p+'"]').forEach(function(f){f.value='';store.set('f-'+f.getAttribute('data-k'),'')});render()})});
+
+  /* ---------- cartões ---------- */
+  var cards=[
+    ['Inteligência Pragmática: definição','A capacidade de alcançar objetivos. Três fases: definir, planejar, executar. Introdução'],
+    ['Fluxo Pragmático','Objetivo, depois informação, depois ação. Não aja antes de ter a informação certa. Cap. 19'],
+    ['4Cs do Projeto Ganha-Ganha','Conciso, Corajoso, Controlável, Comprometido. Caps. 1 a 6'],
+    ['Três formas de deixar um objetivo mais corajoso','Adicionar um zero, implementar um superlativo, integrar interesses. Cap. 3'],
+    ['Três tipos de compromisso','Social, financeiro e de ambiente. Sempre amarrados ao esforço, não ao resultado. Cap. 5'],
+    ['8Rs do Plano Mínimo Viável','Resultado, Razão, Referência, Rumo, Recursos, Restrições, Riscos, Responsável. Caps. 7 a 16'],
+    ['Restrição ou risco?','Restrição é interna: o que eu não vou fazer ou tolerar. Risco é externo: o que pode dar errado apesar de mim. Caps. 13 e 14'],
+    ['Ameaça ou vulnerabilidade?','Ameaça é força externa fora do seu controle. Vulnerabilidade é fraqueza sua, que dá para reduzir. Cap. 14'],
+    ['As seis Habilidades Pragmáticas','Focar, Pesquisar, Entender, Idear, Decidir, Comunicar. Cap. 17'],
+    ['RID','Recompensas para cima, Inércia e Distrações para baixo. O caminho do foco profundo. Cap. 18'],
+    ['Sessão Pragmática: a frase','Vou [tarefa] que [alvo], produzindo [tangível], em [tempo]. Cap. 18'],
+    ['PERG','Pergunte, Explore, Revise, Guarde. É ciclo, não checklist. Cap. 19'],
+    ['DEAP','Definir, Explicar, Aplicar, Prever. Os quatro sinais de que você entendeu. Cap. 20'],
+    ['Como entender algo','Escrever, Testar, Condensar. Cap. 20'],
+    ['Três tipos de retorno, do menos ao mais útil','De resultado, informacional e corretivo. Cap. 20'],
+    ['Aula Perfeita','Título perfeito, Princípios, Processo, Prática, Publicação. Cap. 20'],
+    ['CPT: equação da ideação','Conhecimento × Pesquisa × Técnicas = Ideias. Cap. 21'],
+    ['Pirâmide da ideação','Referências, Restrições, Reformulações. Cap. 21'],
+    ['4 Is da sessão de ideação','Identificar, Idear, Incubar, Instituir. Cap. 21'],
+    ['3 Ps da decisão de alto impacto','Potencial, Período, Pessoas. Cap. 22'],
+    ['CAA e os três níveis de análise','Critérios, Alternativas, Análise. Níveis: espontâneo, planilha, simulação ou protótipo. Cap. 22'],
+    ['Anatomia da mensagem','Consumidor, Comunicador, Canal, Conteúdo. Cap. 23'],
+    ['3 Ps da atualização semanal','Progresso, Problemas, Prioridade. Cap. 23'],
+    ['ABCCC','Atenção, Benefício, Credibilidade, Curiosidade, Chamada para ação. Para mensagem fria e anúncio. Cap. 23'],
+    ['PEGE: os quatro tipos de referência','Princípios (ingredientes), Exemplos (o bolo), Guias (a receita), Experts (o chef). Cap. 10'],
+    ['As três listas do Rumo','Etapas, ideias e questões. Cap. 11'],
+    ['Quatro tipos de recurso e quatro vias para obter','Dinheiro, material, pessoas, informação. Pedir emprestado, trocar, alugar, comprar. Cap. 12'],
+    ['Três critérios para escolher o responsável','Capacidade, disponibilidade e vontade. Cap. 15'],
+    ['Teste da razão única','Liste todas as razões e circule a principal. Um bom projeto se sustenta com uma só. Cap. 9'],
+    ['Os dois modos de pesquisa e a proporção sugerida','Expansão, sem pergunta definida, cerca de 20%. Solução, com pergunta concreta, cerca de 80%. Cap. 19'],
+    ['O que faz de alguém um Nikita','Repetição e explicação: acertou mais de uma vez e consegue dizer como. Cap. 19'],
+    ['Princípio da disponibilidade','A informação mais fácil de achar geralmente não é a melhor. Por isso: fontes acima de fatos. Cap. 19'],
+    ['Os 4 Is de um pedido para a IA','Intenção, Informação, Instrução, Interação. Cap. 19'],
+    ['Como checar uma afirmação que não é científica','Ir à fonte original ou triangular especialistas. Cap. 19'],
+    ['Dois filtros para decidir o que guardar','Vou usar isso depois? Foi difícil de achar? Cap. 19'],
+    ['Definição de conhecimento no livro','Informação armazenada na memória de longo prazo. Tipos: factual, conceitual, processual. Cap. 20'],
+    ['A pergunta que destrava a escrita','O que estou tentando entender aqui? Cap. 20'],
+    ['Chute, depois confirme','Tentar prever a resposta antes de procurar. Aprendemos com o erro de previsão. Cap. 20'],
+    ['Fórmula do título perfeito','Resultado dos sonhos mais uma restrição. Cap. 20'],
+    ['Três perguntas para melhorar o retorno da aplicação direta','Dá para ser mais profundo? Mais rápido? Maior, com mais gente ou mais repetições? Cap. 20'],
+    ['Os seis verbos de condensar','Agrupar, Reduzir, Organizar, Comparar, Visualizar, Armazenar. Cap. 20'],
+    ['Troncos antes dos galhos','Aprender os fundamentos antes dos detalhes. Princípios antes de processos. Cap. 20'],
+    ['Os quatro quadrantes das referências','Novas e diretas, novas e indiretas, antigas e diretas, antigas e indiretas. Cap. 21'],
+    ['A frase das restrições','Para este tema, posso pensar em restrições em termos de... Cap. 21'],
+    ['As cinco reformulações','Engenharia reversa, questionar premissas, alterar a perspectiva, inverter, expandir recursos. Cap. 21'],
+    ['O que identificar antes de idear','O nível do sistema, o formato de registro das ideias e o gargalo (conhecimento, pesquisa ou técnica). Cap. 21'],
+    ['Regra para idear em grupo','Cada pessoa gera ideias sozinha antes. Gerar e criticar ficam em momentos separados. Cap. 21']
+  ];
+  var fi=0,back=false,fc=$('#fc');
+  function drawCard(){fc.classList.toggle('back',back);$('#fc-side').textContent=back?'Resposta':'Pergunta';$('#fc-txt').textContent=cards[fi][back?1:0];$('#fc-count').textContent=(fi+1)+' de '+cards.length}
+  function flip(){back=!back;drawCard()}
+  fc.addEventListener('click',flip);$('#fc-flip').addEventListener('click',flip);
+  $('#fc-next').addEventListener('click',function(){fi=(fi+1)%cards.length;back=false;drawCard()});
+  $('#fc-prev').addEventListener('click',function(){fi=(fi-1+cards.length)%cards.length;back=false;drawCard()});
+  $('#fc-mix').addEventListener('click',function(){for(var i=cards.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=cards[i];cards[i]=cards[j];cards[j]=t}fi=0;back=false;drawCard()});
+
+  /* ---------- quiz ---------- */
+  var qs=[
+    ['"Quero melhorar meu inglês." Qual dos quatro defeitos aparece primeiro?',['É vago demais: não tem prazo nem alvo nítido','É corajoso demais','Tem compromisso em excesso'],0,'Sem prazo curto o alvo fica borrado. O conserto é torná-lo conciso. Cap. 1'],
+    ['Você anuncia para o grupo que vai faturar R$ 50 mil em três meses. O que o livro ajustaria?',['Nada, compromisso público é sempre bom','Amarrar o compromisso à parte controlável, como contatar 100 clientes','Trocar por um compromisso financeiro'],1,'O compromisso deve recair sobre o esforço, que depende de você, e não sobre o resultado. Cap. 5'],
+    ['O algoritmo da plataforma pode mudar e derrubar seu alcance. Isso é:',['Uma restrição','Um risco do tipo ameaça','Uma vulnerabilidade'],1,'É externo e fora do seu controle. A vulnerabilidade seria depender de um canal só, e essa você consegue reduzir. Cap. 14'],
+    ['"Não sacrifico o jantar em família por esse projeto." Em qual R isso entra?',['Riscos','Razão','Restrições'],2,'Restrição é limite interno: aquilo de que você não abre mão. Cap. 13'],
+    ['Quanto tempo de planejamento um projeto pede?',['Sempre uma hora, nem mais nem menos','Quanto mais difícil de desfazer depois, mais tempo','Quanto maior o orçamento, menos tempo'],1,'O mínimo é uma hora. A partir daí o critério é a reversibilidade. Cap. 7'],
+    ['Você leu um capítulo e consegue repetir as definições. Pelo DEAP, o que falta para dizer que entendeu?',['Decorar os exemplos','Explicar, aplicar e prever','Ler de novo'],1,'Definir é só o primeiro dos quatro sinais. Cap. 20'],
+    ['Você está entre aceitar ou recusar uma proposta. O que o método CAA manda fazer antes de analisar?',['Jogar uma moeda','Definir critérios e gerar mais alternativas além das duas','Pedir a opinião de três pessoas'],1,'Critérios vêm primeiro e decisão binária deve ser evitada. Cap. 22'],
+    ['Uma decisão boa levou a um resultado ruim. Como o livro manda avaliar?',['Pelo resultado, que é o que importa','Pela qualidade do processo de decisão','Não dá para avaliar'],1,'O mundo é probabilístico. Decisão e resultado são coisas separadas. Cap. 22'],
+    ['Você quer lançar um projeto e não tem público. Pelo cap. 12, qual é o primeiro movimento?',['Juntar dinheiro para anúncio','Achar quem já tem esse público e propor uma parceria com o trabalho pronto','Esperar o público crescer sozinho'],1,'Audiência pode ser emprestada. Comprar é a via mais rápida e a mais cara, então vale olhar as outras três antes. Cap. 12'],
+    ['A pessoa mais experiente da equipe está lotada e sem interesse no projeto novo. Ela deve ser a responsável?',['Sim, experiência decide','Não: faltam disponibilidade e vontade','Sim, desde que divida com mais duas pessoas'],1,'São três critérios, e em projeto novo a vontade pesa muito. Além disso, o responsável é um só. Cap. 15'],
+    ['Um perfil viralizou uma vez e vende um curso sobre como viralizar. Pelo critério do cap. 19, serve como referência?',['Sim, tem resultado para mostrar','Ainda não: falta repetição, e a explicação precisa ser checada','Não, porque cobra pelo curso'],1,'O critério tem duas partes, repetição e explicação. Um acerto só pode ser sorte. Cobrar não desqualifica: comprar acesso é um caminho válido. Cap. 19'],
+    ['Um relatório mostra que suas vendas caíram 90% de um dia para o outro. Primeira atitude?',['Mudar a oferta imediatamente','Conferir se a medição está certa','Triangular três especialistas'],1,'Ruim demais para ser verdade costuma ser erro no dado, como um link quebrado. Verifique antes de agir. Cap. 19'],
+    ['Você releu um capítulo três vezes e marcou os trechos. Pelo cap. 20, o que falta para entender?',['Reler mais uma vez','Escrever com suas palavras sem olhar o texto','Fazer mais marcações'],1,'Reler é consumir. Escrever obriga a puxar da memória e mostra onde o raciocínio falha. Cap. 20'],
+    ['Você quer ideias realmente novas e as referências do seu ramo só dão mais do mesmo. Para onde subir?',['Buscar mais referências diretas e recentes','Restrições e reformulações','Esperar a inspiração'],1,'Na pirâmide, referências dão volume com pouca novidade. Novidade vem das restrições e, mais ainda, das reformulações. Cap. 21'],
+    ['Na reunião de ideias, alguém critica cada sugestão assim que ela aparece. O que o cap. 21 mudaria?',['Nada, isso filtra as ruins cedo','Separar o momento de gerar do momento de criticar','Reduzir o grupo a duas pessoas'],1,'Primeiro anota tudo, inclusive o que parece ruim. A análise vem depois. E cada pessoa chega com ideias próprias. Cap. 21']
+  ];
+  var qz=$('#quiz'),right=0,answered=0;
+  qs.forEach(function(q,i){
+    var box=el('div',{class:'qz'},'<p>'+(i+1)+'. '+q[0]+'</p>'),o=el('div',{class:'opts'});
+    q[1].forEach(function(t,j){var b=el('button',{type:'button'},t);
+      b.addEventListener('click',function(){if(box._done)return;box._done=true;answered++;
+        if(j===q[2]){right++;b.classList.add('right')}else{b.classList.add('wrong');o.children[q[2]].classList.add('right')}
+        box.appendChild(el('p',{class:'why'},q[3]));
+        $('#score').textContent='Acertos: '+right+' de '+answered+(answered===qs.length?'. Quiz completo.':'')});
+      o.appendChild(b)});
+    box.appendChild(o);qz.appendChild(box);
+  });
+
+  /* ---------- roteiro ---------- */
+  var days=[
+    ['Dia 1. Definir','Escolha um desejo e monte o PGG no construtor acima.','Pronto quando: os quatro Cs estão acesos e a frase cabe numa respiração.'],
+    ['Dia 2. Planejar','Uma hora de cronômetro no Plano Mínimo Viável, na ordem dos 8Rs.','Pronto quando: os oito campos têm resposta e Restrições não ficou por último na pressa.'],
+    ['Dia 3. Focar','Rode uma Sessão Pragmática na primeira etapa do Rumo, com celular em outro cômodo.','Pronto quando: o tangível da frase existe.'],
+    ['Dia 4. Pesquisar','Aplique o PERG na principal questão em aberto do plano.','Pronto quando: você tem duas fontes que concordam e anotou onde guardou.'],
+    ['Dia 5. Entender','Monte uma Aula Perfeita de dez minutos sobre um capítulo.','Pronto quando: você explicou em voz alta para alguém, ou gravou.'],
+    ['Dia 6. Idear e decidir','Gere 25 alternativas para a próxima etapa e passe as cinco melhores por uma tabela de critérios.','Pronto quando: uma alternativa foi escolhida e o critério está escrito.'],
+    ['Dia 7. Comunicar e revisar','Mande uma atualização em três Ps (progresso, problemas, prioridade) para quem recebeu seu compromisso.','Pronto quando: a mensagem foi enviada e o plano foi ajustado com o que você aprendeu.']
+  ];
+  var dl=$('#days');
+  days.forEach(function(d,i){var li=el('li'),id='day-'+i;
+    li.innerHTML='<label for="'+id+'"><input type="checkbox" id="'+id+'"><span><b>'+d[0]+'</b>'+d[1]+'<span class="crit"> '+d[2]+'</span></span></label>';
+    dl.appendChild(li);var c=$('input',li);c.checked=store.get(id)==='1';c.addEventListener('change',function(){store.set(id,c.checked?'1':'0')})});
+
+  /* ---------- prompts ---------- */
+  var prompts=[
+    ['Desejo para PGG','Use quando o objetivo ainda está vago.','Intenção: quero transformar um desejo em um Projeto Ganha-Ganha, com os critérios Conciso, Corajoso, Controlável e Comprometido.\nInformação: meu desejo é [desejo]. Meu contexto: [rotina, tempo disponível, recursos].\nInstrução: me faça uma pergunta por vez, uma para cada critério. Depois escreva três versões do objetivo em uma frase, da mais segura para a mais ousada. Diga em cada uma o que eu ganho mesmo se falhar.\nInteração: espere minhas respostas antes de avançar.'],
+    ['Teste de estresse do plano','Use depois de preencher os 8Rs.','Intenção: quero achar os furos do meu Plano Mínimo Viável antes de me comprometer.\nInformação: [cole o plano em Markdown].\nInstrução: separe os riscos em ameaças externas e vulnerabilidades minhas. Para cada vulnerabilidade, proponha uma ação de redução que caiba em uma semana. Aponte qual dos 8Rs está mais fraco e por quê. Não invente dados: se faltar informação, pergunte.\nInteração: comece pelas três perguntas que você mais precisa que eu responda.'],
+    ['Prova oral DEAP','Use para checar se você entendeu um capítulo.','Intenção: quero testar se entendi [conceito do livro] de verdade.\nInformação: minha explicação com minhas palavras: [escreva aqui].\nInstrução: me teste em quatro etapas, uma por vez: definir, explicar o porquê, aplicar a um caso meu, prever o que acontece se eu mudar uma variável. Depois de cada resposta, dê retorno corretivo: diga o que faltou e como melhorar.\nInteração: não dê a resposta antes de eu tentar.'],
+    ['Tabela de critérios e alternativas','Use em decisão de alto impacto.','Intenção: preciso decidir sobre [decisão].\nInformação: o que está em jogo: [contexto]. Do que não abro mão: [restrições].\nInstrução: primeiro proponha de três a seis critérios e me peça para confirmar. Depois gere pelo menos cinco alternativas, incluindo uma que eu não considerei. Monte uma tabela de critérios por alternativas com notas e a premissa de cada nota escrita ao lado.\nInteração: pare depois dos critérios e espere minha confirmação.']
+  ];
+  var pw=$('#prompts');
+  prompts.forEach(function(p,i){var d=el('div',{class:'prompt'},'<h4>'+p[0]+'</h4><p class="when">'+p[1]+'</p><pre></pre><div class="row"><button type="button" class="small">Copiar prompt</button><span class="said"></span></div><textarea class="fallback" readonly aria-label="Prompt para copiar"></textarea>');
+    $('pre',d).textContent=p[2];$('button',d).addEventListener('click',function(){copy(p[2],$('.said',d),$('textarea',d))});pw.appendChild(d)});
+
+  render();drawCard();paint();fromHash();
+})();
+</script>
+</body>
+</html>
